@@ -1,0 +1,1546 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>GueMi_Pay — Forfaits Illimités, Combos Appels & Data Cameroun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Passerelle de paiement télécom et factures pour le Cameroun. Rechargez MTN, Orange, Yoomee, Camtel, Canal+, ENEO et CAMWATER instantanément.">
+<meta name="theme-color" content="#09533e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f8f7;
+  --surface:#ffffff;
+  --surface-2:#f0f4f2;
+  --surface-elevated:#ffffff;
+  --ink:#0a1611;
+  --ink-2:#1a2e25;
+  --ink-3:#3d5248;
+  --mut:#6b7f75;
+  --line:#e2ebe6;
+  --line-strong:#c8d6ce;
+  --br:#0a5c45;
+  --br-mid:#0d7a5c;
+  --br-soft:#e8f5f0;
+  --br-hover:#084a37;
+  --acc:#f0a01a;
+  --acc-hover:#d9890f;
+  --acc-soft:rgba(240,160,26,.12);
+  --bad:#c62828;
+  --bad-soft:#fef2f2;
+  --ok:#0d7a45;
+  --ok-soft:#e8f5ee;
+  --mtn:#ffcc00;
+  --orange:#ff7900;
+  --yoomee:#e20613;
+  --camtel:#0066b3;
+  --radius:16px;
+  --radius-sm:10px;
+  --radius-lg:22px;
+  --shadow-xs:0 1px 2px rgba(10,22,17,.04);
+  --shadow-sm:0 2px 8px rgba(10,22,17,.05),0 1px 2px rgba(10,22,17,.03);
+  --shadow-md:0 8px 24px rgba(10,22,17,.07),0 2px 6px rgba(10,22,17,.04);
+  --shadow-lg:0 16px 48px rgba(10,22,17,.1),0 4px 12px rgba(10,22,17,.05);
+  --shadow-glow:0 0 0 3px rgba(10,92,69,.15);
+  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-display:"Plus Jakarta Sans",var(--font);
+  --ease:cubic-bezier(.25,.1,.25,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#060f0b;
+    --surface:#0c1a14;
+    --surface-2:#12231c;
+    --surface-elevated:#0f1f18;
+    --ink:#e8f0eb;
+    --ink-2:#c5d4cb;
+    --ink-3:#9aafa3;
+    --mut:#7a9085;
+    --line:#1a2e25;
+    --line-strong:#243d32;
+    --br:#2bb87a;
+    --br-mid:#34c98a;
+    --br-soft:#0f2a1f;
+    --br-hover:#3dd492;
+    --acc:#f5b328;
+    --acc-hover:#f7c04e;
+    --acc-soft:rgba(245,179,40,.12);
+    --bad:#ef5350;
+    --bad-soft:#2a1515;
+    --ok:#4caf50;
+    --ok-soft:#0f2a1a;
+    --shadow-xs:0 1px 2px rgba(0,0,0,.2);
+    --shadow-sm:0 2px 8px rgba(0,0,0,.25),0 1px 2px rgba(0,0,0,.15);
+    --shadow-md:0 8px 24px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.2);
+    --shadow-lg:0 16px 48px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.25);
+    --shadow-glow:0 0 0 3px rgba(43,184,122,.2);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#060f0b;
+  --surface:#0c1a14;
+  --surface-2:#12231c;
+  --surface-elevated:#0f1f18;
+  --ink:#e8f0eb;
+  --ink-2:#c5d4cb;
+  --ink-3:#9aafa3;
+  --mut:#7a9085;
+  --line:#1a2e25;
+  --line-strong:#243d32;
+  --br:#2bb87a;
+  --br-mid:#34c98a;
+  --br-soft:#0f2a1f;
+  --br-hover:#3dd492;
+  --acc:#f5b328;
+  --acc-hover:#f7c04e;
+  --acc-soft:rgba(245,179,40,.12);
+  --bad:#ef5350;
+  --bad-soft:#2a1515;
+  --ok:#4caf50;
+  --ok-soft:#0f2a1a;
+  --shadow-xs:0 1px 2px rgba(0,0,0,.2);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.25),0 1px 2px rgba(0,0,0,.15);
+  --shadow-md:0 8px 24px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.2);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.25);
+  --shadow-glow:0 0 0 3px rgba(43,184,122,.2);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:15px/1.55 var(--font);
+  font-feature-settings:"cv02","cv03","cv04","cv11";
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+
+/* Layout */
+.layout{width:100%;max-width:1200px;margin:0 auto;padding:0 20px}
+@media(min-width:768px){.layout{padding:0 28px}}
+@media(min-width:1100px){.layout{padding:0 32px}}
+
+/* Header */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(246,248,247,.88);
+  backdrop-filter:blur(16px) saturate(1.4);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+  transition:background .2s var(--ease);
+}
+[data-theme="dark"] header{background:rgba(6,15,11,.88)}
+.hd{
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;gap:16px;
+}
+@media(min-width:768px){.hd{height:72px}}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;font-family:var(--font-display);
+  font-weight:800;font-size:22px;letter-spacing:-.7px;
+  color:var(--ink);transition:opacity .15s;
+}
+.logo:hover{opacity:.85}
+.logo-mark{
+  width:32px;height:32px;border-radius:9px;
+  background:linear-gradient(145deg,var(--br) 0%,var(--br-mid) 100%);
+  display:grid;place-items:center;color:#fff;
+  font-size:13px;font-weight:900;letter-spacing:-.5px;
+  box-shadow:0 2px 8px rgba(10,92,69,.25);
+}
+.logo-text span{color:var(--acc)}
+.logo-badge{
+  background:var(--br-soft);color:var(--br);
+  border-radius:6px;padding:3px 8px;
+  font-size:11px;font-weight:700;letter-spacing:.3px;
+  border:1px solid transparent;
+}
+[data-theme="dark"] .logo-badge{border-color:var(--line)}
+.nav-status{
+  display:none;align-items:center;gap:12px;
+  font-size:13px;font-weight:600;color:var(--mut);
+}
+@media(min-width:900px){.nav-status{display:flex}}
+.net-dots{display:flex;gap:5px;align-items:center}
+.net-dot{
+  width:8px;height:8px;border-radius:50%;
+  box-shadow:0 0 0 2px var(--surface);
+}
+.header-actions{display:flex;align-items:center;gap:8px}
+.lang-switch{
+  display:flex;border:1.5px solid var(--line);
+  background:var(--surface);border-radius:10px;
+  overflow:hidden;padding:2px;gap:1px;
+}
+.lang-btn{
+  background:none;border:none;color:var(--mut);
+  padding:6px 12px;font-size:12px;font-weight:700;
+  border-radius:8px;transition:all .15s var(--ease);
+  letter-spacing:.2px;
+}
+.lang-btn:hover{color:var(--ink)}
+.lang-btn.active{background:var(--br);color:#fff;box-shadow:var(--shadow-xs)}
+.ib{
+  border:1.5px solid var(--line);background:var(--surface);
+  color:var(--ink);border-radius:10px;
+  width:38px;height:38px;font-size:16px;
+  display:grid;place-items:center;
+  transition:all .15s var(--ease);
+}
+.ib:hover{border-color:var(--br);background:var(--br-soft);color:var(--br)}
+
+/* Stepper */
+.steps-bar{
+  border-bottom:1px solid var(--line);
+  background:var(--surface);
+  padding:12px 0;
+}
+.steps-wrap{display:flex;align-items:center;gap:6px}
+.step-item{
+  flex:1;display:flex;flex-direction:column;gap:6px;
+  cursor:default;min-width:0;
+}
+.step-item.clickable{cursor:pointer}
+.step-item b{
+  height:3px;border-radius:2px;
+  background:var(--line);transition:background .3s var(--ease);
+}
+.step-item.active b{background:var(--br)}
+.step-item.done b{background:var(--br-mid)}
+.step-item span{
+  font-size:11px;font-weight:600;color:var(--mut);
+  text-transform:uppercase;letter-spacing:.5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.step-item.active span{color:var(--br)}
+.step-item.done span{color:var(--br-mid)}
+
+/* Main */
+main{flex:1;padding:28px 0 80px}
+@media(min-width:960px){main{padding:36px 0 60px}}
+
+.checkout-grid{
+  display:grid;grid-template-columns:1fr;gap:28px;align-items:start;
+}
+@media(min-width:980px){
+  .checkout-grid{grid-template-columns:1fr 380px;gap:36px}
+}
+
+/* Banners */
+.banner-grid{
+  display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:36px;
+}
+@media(min-width:700px){.banner-grid{grid-template-columns:repeat(3,1fr)}}
+.bn{
+  border-radius:var(--radius-lg);padding:24px;
+  position:relative;overflow:hidden;color:#fff;
+  cursor:pointer;min-height:168px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  transition:transform .2s var(--ease-out),box-shadow .2s var(--ease);
+  border:1px solid transparent;
+}
+.bn::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 20%,rgba(255,255,255,.15),transparent 60%);
+  pointer-events:none;
+}
+.bn:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.bn:active{transform:translateY(-1px)}
+.bn.b1{background:linear-gradient(145deg,#003d6e 0%,#0066b3 50%,#0080d4 100%)}
+.bn.b2{background:linear-gradient(145deg,#8a1210 0%,#c41e18 50%,#e0241b 100%)}
+.bn.b3{background:linear-gradient(145deg,#9a5200 0%,#c96a00 50%,#ea7d00 100%)}
+.bn-tag{
+  align-self:flex-start;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(8px);
+  padding:4px 10px;border-radius:6px;
+  font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.7px;
+}
+.bn h3{
+  margin:14px 0 6px;font-family:var(--font-display);
+  font-size:17px;font-weight:700;letter-spacing:-.3px;line-height:1.3;
+}
+.bn p{margin:0;font-size:13px;opacity:.9;line-height:1.45;max-width:90%}
+.bn-cta{
+  margin-top:16px;align-self:flex-start;
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;color:#fff;
+  background:rgba(0,0,0,.22);padding:6px 14px;
+  border-radius:99px;transition:background .15s;
+}
+.bn:hover .bn-cta{background:rgba(0,0,0,.32)}
+
+/* Typography */
+h1{
+  font-family:var(--font-display);
+  font-size:30px;line-height:1.15;margin:0 0 12px;
+  letter-spacing:-1px;font-weight:800;color:var(--ink);
+}
+@media(min-width:768px){h1{font-size:36px}}
+h2{
+  font-family:var(--font-display);
+  font-size:22px;margin:0 0 8px;
+  letter-spacing:-.5px;font-weight:700;
+}
+p.sub{color:var(--mut);margin:0 0 28px;font-size:15px;max-width:560px;line-height:1.6}
+
+/* Service cards */
+.services-grid{
+  display:grid;grid-template-columns:1fr;gap:12px;
+}
+@media(min-width:600px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+.service-card{
+  background:var(--surface);
+  border:1.5px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;text-align:left;cursor:pointer;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:148px;
+  transition:all .2s var(--ease-out);
+  box-shadow:var(--shadow-xs);
+}
+.service-card:hover{
+  border-color:var(--br);
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-md);
+}
+.service-card:active{transform:translateY(-1px)}
+.service-card.primary-card{
+  grid-column:1/-1;
+  background:linear-gradient(145deg,var(--br) 0%,#0a6b4f 100%);
+  color:#fff;border-color:transparent;
+  box-shadow:0 8px 28px rgba(10,92,69,.22);
+}
+@media(min-width:1000px){.service-card.primary-card{grid-column:span 2}}
+.service-card .icon{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--br-soft);
+  display:grid;place-items:center;
+  font-size:22px;margin-bottom:14px;
+}
+.service-card.primary-card .icon{background:rgba(255,255,255,.15)}
+.service-card b{
+  font-family:var(--font-display);
+  font-size:17px;font-weight:700;letter-spacing:-.3px;display:block;
+}
+.service-card p{margin:4px 0 0;font-size:13px;color:var(--mut);line-height:1.45}
+.service-card.primary-card p{color:rgba(255,255,255,.85)}
+.service-card .cta-label{
+  margin-top:16px;font-weight:700;font-size:13px;
+  display:flex;align-items:center;gap:5px;
+  color:var(--br);
+}
+.service-card.primary-card .cta-label{color:rgba(255,255,255,.95)}
+
+/* Chips */
+.chips-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px}
+.chip-btn{
+  border:1.5px solid var(--line);background:var(--surface);
+  color:inherit;border-radius:99px;padding:9px 16px;
+  font-weight:600;font-size:13px;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:all .15s var(--ease);
+  box-shadow:var(--shadow-xs);
+}
+.chip-btn:hover{border-color:var(--br);background:var(--br-soft)}
+.chip-btn.active{
+  border-color:var(--br);background:var(--br);
+  color:#fff;box-shadow:0 2px 8px rgba(10,92,69,.2);
+}
+.chip-btn s{width:10px;height:10px;border-radius:50%;display:block;flex-shrink:0}
+
+/* Bundle cards */
+.bundles-grid{
+  display:grid;grid-template-columns:1fr;gap:10px;
+}
+@media(min-width:520px){.bundles-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:820px){.bundles-grid{grid-template-columns:repeat(3,1fr)}}
+.bundle-card{
+  border:1.5px solid var(--line);background:var(--surface);
+  border-radius:14px;padding:16px 16px 14px;
+  text-align:left;cursor:pointer;position:relative;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:120px;
+  transition:all .15s var(--ease);
+  box-shadow:var(--shadow-xs);
+}
+.bundle-card:hover{border-color:var(--br);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.bundle-card.active{
+  border-color:var(--br);background:var(--br-soft);
+  box-shadow:0 0 0 1px var(--br),var(--shadow-sm);
+}
+.bundle-card b{
+  font-family:var(--font-display);
+  font-size:15px;font-weight:700;line-height:1.3;margin-bottom:2px;
+  letter-spacing:-.2px;
+}
+.bundle-card span{color:var(--mut);font-size:12px;font-weight:500}
+.bundle-card .price{
+  font-size:16px;font-weight:800;color:var(--br);
+  margin-top:10px;letter-spacing:-.3px;
+}
+.tag-badge{
+  position:absolute;top:10px;right:10px;
+  background:var(--acc);color:#1a1408;
+  font-size:9px;font-weight:800;padding:3px 7px;
+  border-radius:6px;letter-spacing:.3px;
+  text-transform:uppercase;
+}
+
+/* Forms */
+.form-group{margin-bottom:18px}
+label{
+  display:block;font-weight:600;margin-bottom:7px;
+  font-size:13px;color:var(--ink-2);letter-spacing:-.1px;
+}
+input[type=text],input[type=tel]{
+  width:100%;font-size:16px;padding:13px 15px;
+  border-radius:12px;border:1.5px solid var(--line);
+  background:var(--surface);color:inherit;
+  letter-spacing:.3px;transition:border-color .15s,box-shadow .15s;
+}
+input:focus{
+  outline:none;border-color:var(--br);
+  box-shadow:var(--shadow-glow);
+}
+input::placeholder{color:var(--mut);opacity:.7}
+.input-hint{
+  min-height:18px;font-size:12px;margin-top:5px;
+  font-weight:600;transition:color .15s;
+}
+.input-hint.good{color:var(--ok)}
+.input-hint.bad{color:var(--bad)}
+
+/* Payment methods */
+.pm-list{display:flex;flex-direction:column;gap:8px}
+.pm-btn{
+  border:1.5px solid var(--line);background:var(--surface);
+  border-radius:14px;padding:14px 16px;
+  text-align:left;cursor:pointer;
+  display:flex;align-items:center;gap:14px;
+  transition:all .15s var(--ease);
+  box-shadow:var(--shadow-xs);
+}
+.pm-btn:hover{border-color:var(--br);background:var(--br-soft)}
+.pm-btn.active{
+  border-color:var(--br);background:var(--br-soft);
+  box-shadow:0 0 0 1px var(--br);
+}
+.pm-btn s{
+  width:36px;height:36px;border-radius:10px;
+  display:block;flex-shrink:0;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
+}
+.pm-btn b{font-size:15px;display:block;font-weight:700;letter-spacing:-.2px}
+.pm-btn span{color:var(--mut);font-size:12px;font-weight:500}
+
+/* Ticket panel */
+.ticket-panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:22px;
+  position:sticky;top:96px;
+  box-shadow:var(--shadow-sm);
+}
+.ticket-panel h3{
+  margin:0 0 16px;
+  font-family:var(--font-display);
+  font-size:15px;font-weight:700;letter-spacing:-.2px;
+  color:var(--ink-2);
+}
+.ticket-row{
+  display:flex;justify-content:space-between;gap:12px;
+  padding:9px 0;border-bottom:1px dashed var(--line);
+  font-size:13px;
+}
+.ticket-row:last-of-type{border-bottom:0}
+.ticket-row span{color:var(--mut);font-weight:500}
+.ticket-row b{font-weight:600;text-align:right;color:var(--ink)}
+.ticket-total{
+  margin-top:14px;padding-top:14px;
+  border-top:1.5px solid var(--line);
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.ticket-total span{font-size:14px;font-weight:700;color:var(--ink-2)}
+.ticket-total strong{
+  font-family:var(--font-display);
+  font-size:22px;font-weight:800;color:var(--br);letter-spacing:-.5px;
+}
+
+.action-btn{
+  width:100%;background:var(--acc);color:#1a1408;
+  border:0;border-radius:12px;padding:15px;
+  font-weight:700;font-size:15px;
+  margin-top:16px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .15s var(--ease);
+  box-shadow:0 2px 8px rgba(240,160,26,.25);
+}
+.action-btn:hover:not(:disabled){
+  background:var(--acc-hover);transform:translateY(-1px);
+  box-shadow:0 4px 14px rgba(240,160,26,.3);
+}
+.action-btn:active:not(:disabled){transform:translateY(0)}
+.action-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn-back{
+  background:none;border:0;color:var(--mut);
+  padding:10px 0 0;font-weight:600;font-size:13px;
+  display:inline-flex;align-items:center;gap:5px;
+  transition:color .15s;
+}
+.btn-back:hover{color:var(--ink)}
+
+.confirm-check{
+  display:flex;gap:10px;align-items:flex-start;
+  margin-top:16px;font-size:13px;font-weight:500;
+  color:var(--ink-3);cursor:pointer;line-height:1.4;
+}
+.confirm-check input{
+  width:18px;height:18px;margin-top:1px;
+  accent-color:var(--br);cursor:pointer;flex-shrink:0;
+}
+
+/* Processing & Success */
+.processing-card{
+  text-align:center;padding:56px 28px;
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius-lg);max-width:520px;
+  margin:20px auto;box-shadow:var(--shadow-md);
+}
+.spinner{
+  width:48px;height:48px;
+  border:3.5px solid var(--line);
+  border-top-color:var(--br);
+  border-radius:50%;margin:0 auto 22px;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.success-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--ok);color:#fff;
+  font-size:28px;display:grid;place-items:center;
+  margin:0 auto 16px;
+  box-shadow:0 4px 16px rgba(13,122,69,.3);
+  animation:pop .4s var(--ease-out);
+}
+@keyframes pop{
+  0%{transform:scale(.6);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+
+/* Mobile bar */
+.mobile-bar{
+  display:block;position:fixed;left:0;right:0;bottom:0;
+  background:var(--surface);border-top:1px solid var(--line);
+  padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));
+  z-index:50;box-shadow:0 -4px 24px rgba(10,22,17,.08);
+}
+@media(min-width:980px){.mobile-bar{display:none}}
+.mobile-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.mobile-bar small{
+  color:var(--mut);display:block;font-size:10px;
+  font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+}
+.mobile-bar strong{
+  font-family:var(--font-display);
+  font-size:18px;font-weight:800;letter-spacing:-.3px;
+}
+.mobile-bar button{
+  background:var(--acc);color:#1a1408;border:0;
+  border-radius:11px;padding:12px 20px;
+  font-weight:700;font-size:14px;
+  transition:background .15s;
+  box-shadow:0 2px 8px rgba(240,160,26,.25);
+}
+.mobile-bar button:hover:not(:disabled){background:var(--acc-hover)}
+.mobile-bar button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+
+/* Footer */
+footer{
+  background:var(--surface);border-top:1px solid var(--line);
+  padding:48px 0 28px;color:var(--mut);font-size:13px;margin-top:auto;
+}
+.footer-grid{
+  display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:32px;
+}
+@media(min-width:640px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.footer-grid{grid-template-columns:1.5fr 1fr 1fr 1fr}}
+.footer-col h4{
+  margin:0 0 12px;color:var(--ink);
+  font-size:14px;font-weight:700;letter-spacing:-.2px;
+}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:7px}
+.footer-col a{
+  color:inherit;text-decoration:none;
+  transition:color .12s;font-weight:500;
+}
+.footer-col a:hover{color:var(--br)}
+.trust-strip{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  padding:16px 0;border-top:1px dashed var(--line);
+  border-bottom:1px dashed var(--line);margin-bottom:24px;
+}
+.trust-pill{
+  font-size:11px;font-weight:600;
+  background:var(--surface-2);color:var(--ink-2);
+  padding:6px 11px;border-radius:8px;
+  display:flex;align-items:center;gap:5px;
+  border:1px solid var(--line);
+}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:10px;padding-top:8px;font-size:12px;
+}
+.live-pulse{
+  display:inline-flex;align-items:center;gap:7px;
+  color:var(--ok);font-weight:600;font-size:12px;
+}
+.live-pulse i{
+  width:7px;height:7px;border-radius:50%;background:var(--ok);
+  box-shadow:0 0 0 0 rgba(13,122,69,.4);
+  animation:pulse 2s infinite;display:block;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(13,122,69,.45)}
+  70%{box-shadow:0 0 0 7px rgba(13,122,69,0)}
+  100%{box-shadow:0 0 0 0 rgba(13,122,69,0)}
+}
+
+/* Recent transactions */
+.recent-list{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-xs);
+}
+.recent-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:13px 18px;border-bottom:1px solid var(--line);
+  transition:background .12s;
+}
+.recent-item:last-child{border-bottom:0}
+.recent-item:hover{background:var(--surface-2)}
+.recent-item strong{display:block;font-size:13px;font-weight:600}
+.recent-item span{font-size:12px;color:var(--mut)}
+.recent-item .amt{color:var(--br);font-size:14px;font-weight:700}
+
+/* Utility */
+.section-label{
+  font-size:12px;font-weight:700;color:var(--mut);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;
+}
+.fade-in{animation:fadeIn .35s var(--ease-out)}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="layout">
+    <div class="hd">
+      <a href="javascript:void(0)" onclick="init();R()" class="logo">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">GueMi<span>_</span>Pay</div>
+        <span class="logo-badge">🇨🇲 CMR</span>
+      </a>
+      <div class="nav-status">
+        <div class="net-dots" title="Réseaux: MTN, Orange, Yoomee, Camtel">
+          <span class="net-dot" style="background:var(--mtn)"></span>
+          <span class="net-dot" style="background:var(--orange)"></span>
+          <span class="net-dot" style="background:var(--yoomee)"></span>
+          <span class="net-dot" style="background:var(--camtel)"></span>
+        </div>
+        <span id="nav-desc">Passerelle Télécoms &amp; Factures</span>
+      </div>
+      <div class="header-actions">
+        <div class="lang-switch">
+          <button class="lang-btn" id="btn-fr" onclick="setLang('fr')">FR</button>
+          <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        </div>
+        <button class="ib" aria-label="Toggle theme" onclick="th()">◐</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="steps-bar" id="st-bar" hidden>
+  <div class="layout">
+    <div class="steps-wrap" id="st"></div>
+  </div>
+</div>
+
+<main>
+  <div class="layout" id="app"></div>
+</main>
+
+<div class="mobile-bar" id="bar" hidden>
+  <div class="mobile-bar-inner">
+    <div>
+      <small id="bl">Total</small>
+      <strong id="bt"></strong>
+    </div>
+    <button id="go" onclick="nx()">Continuer</button>
+  </div>
+</div>
+
+<footer>
+  <div class="layout">
+    <div class="trust-strip">
+      <div class="trust-pill" id="ft-t1">🔒 Chiffrement Bancaire TLS 256-Bit</div>
+      <div class="trust-pill" id="ft-t2">⚡ Livraison USSD &amp; SIM Immédiate</div>
+      <div class="trust-pill" id="ft-t3">🇨🇲 Intégration Officielle Opérateurs</div>
+      <div class="trust-pill" id="ft-t4">🛡️ Sans Inscription · Sans Dépôt</div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>GueMi_Pay Cameroun</h4>
+        <p style="margin:0 0 12px;line-height:1.55" id="ft-desc">Portail direct de règlement télécom et factures pour Douala, Yaoundé, Bafoussam, Garoua, Bamenda, Kribi et l'ensemble des 10 régions.</p>
+        <div class="live-pulse"><i></i> <span id="ft-live">Toutes les passerelles 100% opérationnelles</span></div>
+      </div>
+      <div class="footer-col">
+        <h4 id="ft-c1-t">Télécommunications</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="quickLaunch('data','Camtel')">Camtel Blue Illimité 3K &amp; 5K</a></li>
+          <li><a href="javascript:void(0)" onclick="quickLaunch('data','MTN')">MTN Yamo &amp; Wanda Combos</a></li>
+          <li><a href="javascript:void(0)" onclick="quickLaunch('data','Orange')">Orange Dyal &amp; Plenty Mix</a></li>
+          <li><a href="javascript:void(0)" onclick="quickLaunch('data','Yoomee')">Yoomee 4G LTE &amp; All-in-One</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 id="ft-c2-t">Services &amp; Factures</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="quickLaunch('canal')">Canal+ Access &amp; Tout Canal+</a></li>
+          <li><a href="javascript:void(0)" onclick="quickLaunch('eneo')">ENEO Tokens Prépayés</a></li>
+          <li><a href="javascript:void(0)" onclick="quickLaunch('eneo')">ENEO Factures Postpayées</a></li>
+          <li><a href="javascript:void(0)" onclick="quickLaunch('water')">CAMWATER Recharges &amp; Factures</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 id="ft-c3-t">Assistance 24/7</h4>
+        <ul>
+          <li><a href="https://wa.me/237600000000" target="_blank" rel="noopener">💬 WhatsApp Support Direct</a></li>
+          <li><a href="mailto:support@guemipay.cm">✉️ support@guemipay.cm</a></li>
+          <li id="ft-sla">Délai moyen : &lt; 2 Minutes</li>
+          <li id="ft-hrs">Paiements sécurisés H24 / 7j/7</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div id="ft-copy">&copy; 2026 <strong>GueMi_Pay</strong>. Plateforme de transactions numériques certifiée.</div>
+      <div>Standard Bancaire CEMAC · Yaoundé, Cameroun</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id),F=n=>Number(n).toLocaleString('fr-FR')+' FCFA',dg=v=>(v||'').replace(/\D/g,''),cl=v=>dg(v).replace(/^237/,'');
+const mk=t=>t.split(';').map(x=>{const s=x.split(',');return{k:s[0],p:+s[1],d:s[2],v:s[3],b:s[4]||''}});
+
+const I18N = {
+  fr: {
+    navDesc: 'Passerelle Télécoms & Factures',
+    heroTitle: 'Payez instantanément.<br>Sans compte, sans attente.',
+    heroSub: 'Rechargez vos forfaits internet, offres illimitées Blue, combos Appels+SMS de tous les 4 opérateurs, Canal+, ENEO et CAMWATER avec MoMo, Orange Money, EU ou carte bancaire.',
+    recentTx: 'Transactions récentes sur cet appareil',
+    selectSvc: 'Choisir ce service',
+    validity: 'Validité',
+    periodSelect: 'Période d\'abonnement',
+    months: 'mois',
+    customAmount: 'Montant personnalisé',
+    quickSelect: 'Sélection rapide',
+    liveSummary: 'Récapitulatif',
+    cat: 'Catégorie',
+    item: 'Forfait choisi',
+    recipientSim: 'Numéro bénéficiaire',
+    recipientAcc: 'N° compte / compteur',
+    payVia: 'Mode de règlement',
+    payerPhone: 'Téléphone payeur',
+    fee: 'Frais de service',
+    free: '0 FCFA · Gratuit',
+    total: 'Total à payer',
+    proceed: 'Continuer',
+    authPay: 'Autoriser & Payer',
+    returnPrev: '← Étape précédente',
+    checkConfirm: 'Je certifie que le numéro ou identifiant est exact.',
+    awaitTitle: 'En attente de validation',
+    awaitCard: 'Redirection vers la passerelle 3-D Secure…',
+    awaitPrompt: 'Saisissez votre code PIN sur le téléphone ',
+    stepUssd: '● 1. Traitement Mobile Money',
+    stepDeliv: '● 2. Livraison du service sur ',
+    successTitle: 'Paiement effectué !',
+    deliveredTo: 'crédité avec succès au ',
+    txRef: 'Référence',
+    txAmount: 'Montant débité',
+    txSource: 'Source de paiement',
+    txStatus: 'Statut',
+    txDate: 'Date & Heure',
+    confirmed: 'CONFIRMÉ & RECHARGÉ',
+    btnCopy: 'Copier le reçu',
+    btnNew: 'Nouvelle opération',
+    copiedAlert: 'Reçu copié dans le presse-papier !',
+    stepTitle1: 'Choisissez votre forfait',
+    stepTitle2: 'Informations du bénéficiaire',
+    stepSub2: 'Vérifiez attentivement les numéros. Aucun remboursement n’est possible en cas d’erreur de saisie.',
+    confirmNumber: 'Confirmez le numéro',
+    repeatNumber: 'Saisissez à nouveau le numéro exact',
+    stepTitle3: 'Comment souhaitez-vous payer ?',
+    stepSub3: 'Votre compte est uniquement débité après validation sur votre téléphone.',
+    payerNumLabel: 'Votre numéro',
+    confirmPayerNum: 'Confirmez votre numéro de paiement',
+    sameAsRec: 'Utiliser le même numéro que le bénéficiaire',
+    stepTitle4: 'Autorisation de la transaction',
+    stepSub4: 'Vérifiez les détails avant l\'envoi final.',
+    breakdownTitle: 'Détails du débit',
+    breakdownMsg: 'Vous allez initier un débit de',
+    breakdownMsg2: 'depuis votre compte pour recharger',
+    breakdownMsg3: 'sur le compte de',
+    continue: 'Continuer',
+    pay: 'Payer',
+    tabs: { D: 'Jour (24h)', W: 'Semaine (7j)', M: 'Mois (30j)', G: '🔥 Bons Plans' },
+    stn: ['Service', 'Forfait', 'Bénéficiaire', 'Paiement', 'Vérification'],
+    badges: {
+      POPULAR: 'POPULAIRE', BEST_VALUE: 'MEILLEUR PRIX', TOP_SELLER: 'TOP VENTE',
+      DEAL: '🔥 BON PLAN', SPECIAL: '🔥 SPÉCIAL', MEGA: 'MEGA PACK',
+      UNLIMITED: 'ILLIMITÉ', COMBO: 'COMBO APPELS+SMS',
+      BLUE_3K: 'BLUE 3K', BLUE_5K: 'BLUE 5K', BLUE_10K: 'BLUE 10K', BLUE_20K: 'BLUE MAX'
+    },
+    banners: [
+      { tag: 'Camtel Blue Illimité', h3: 'Blue One 3K & 5K Illimité', p: 'Internet sans interruption & appels Blue illimités à partir de 3 000 FCFA.', cta: 'Activer Blue' },
+      { tag: 'MTN & Orange Combos', h3: 'Data + Appels + SMS', p: 'Packs Yamo, Wanda & Orange Dyal combinant internet et minutes d’appels.', cta: 'Voir les Combos' },
+      { tag: 'Yoomee All-in-One', h3: 'Yoomee 4G LTE & Voix', p: 'Giga octets généreux et minutes tous réseaux valables jusqu\'à 30 jours.', cta: 'Offres Yoomee' }
+    ],
+    hints: {
+      validCM: 'Numéro camerounais valide ✓',
+      invalidCM: 'Numéro camerounais non reconnu',
+      selectedOp: 'Numéro {op} confirmé ✓',
+      wrongOp: 'Ce numéro appartient à {d}, pas à {op}',
+      digitsReq: '{n} chiffres saisis',
+      match: 'Numéros identiques ✓',
+      noMatch: 'Les numéros ne correspondent pas',
+      reqOp: '{pm} nécessite un compte {need} (détecté {d})'
+    }
+  },
+  en: {
+    navDesc: 'Telecom & Utility Payments Gateway',
+    heroTitle: 'Pay instantly.<br>No account, zero waiting.',
+    heroSub: 'Top up data bundles, Camtel Blue unlimited packs, all-in-one Call+SMS combos for all 4 Cameroon networks, Canal+, ENEO electricity & CAMWATER water.',
+    recentTx: 'Recent transactions on this device',
+    selectSvc: 'Select Service',
+    validity: 'Validity',
+    periodSelect: 'Subscription Duration',
+    months: 'months',
+    customAmount: 'Custom amount',
+    quickSelect: 'Quick Select',
+    liveSummary: 'Order Summary',
+    cat: 'Category',
+    item: 'Selected Package',
+    recipientSim: 'Recipient SIM',
+    recipientAcc: 'Account / Meter No.',
+    payVia: 'Payment Method',
+    payerPhone: 'Payer Phone',
+    fee: 'Service Fee',
+    free: '0 FCFA · Free',
+    total: 'Total Payable',
+    proceed: 'Continue',
+    authPay: 'Authorize & Pay',
+    returnPrev: '← Previous step',
+    checkConfirm: 'I verify that the phone number or contract ID above is accurate.',
+    awaitTitle: 'Awaiting Authorization',
+    awaitCard: 'Redirecting to 3-D Secure gateway…',
+    awaitPrompt: 'Enter your secret PIN on phone ',
+    stepUssd: '● 1. Processing Mobile Money',
+    stepDeliv: '● 2. Delivering service to ',
+    successTitle: 'Payment Successful!',
+    deliveredTo: 'credited directly to ',
+    txRef: 'Reference',
+    txAmount: 'Amount Debited',
+    txSource: 'Payment Source',
+    txStatus: 'Status',
+    txDate: 'Date & Time',
+    confirmed: 'CONFIRMED & RECHARGED',
+    btnCopy: 'Copy Receipt',
+    btnNew: 'New Transaction',
+    copiedAlert: 'Receipt copied to clipboard!',
+    stepTitle1: 'Select your package',
+    stepTitle2: 'Recipient Information',
+    stepSub2: 'Double-check your digits carefully. Airtime and data sent to a wrong number cannot be reversed.',
+    confirmNumber: 'Confirm phone/account number',
+    repeatNumber: 'Re-enter the exact number',
+    stepTitle3: 'Select payment method',
+    stepSub3: 'Your account is only debited after you authorize the prompt on your phone.',
+    payerNumLabel: 'Your account number',
+    confirmPayerNum: 'Confirm your payment phone number',
+    sameAsRec: 'Use recipient number as payment account',
+    stepTitle4: 'Transaction Authorization',
+    stepSub4: 'Please review all details before sending the final payment.',
+    breakdownTitle: 'Debit Details',
+    breakdownMsg: 'You are authorizing an instant debit of',
+    breakdownMsg2: 'from your account to credit',
+    breakdownMsg3: 'to recipient',
+    continue: 'Continue',
+    pay: 'Pay',
+    tabs: { D: 'Daily (24h)', W: 'Weekly (7d)', M: 'Monthly (30d)', G: '🔥 Good Deals' },
+    stn: ['Service', 'Package', 'Recipient', 'Payment', 'Review'],
+    badges: {
+      POPULAR: 'POPULAR', BEST_VALUE: 'BEST VALUE', TOP_SELLER: 'TOP SELLER',
+      DEAL: '🔥 DEAL', SPECIAL: '🔥 SPECIAL', MEGA: 'MEGA PACK',
+      UNLIMITED: 'UNLIMITED', COMBO: 'CALLS+SMS COMBO',
+      BLUE_3K: 'BLUE 3K', BLUE_5K: 'BLUE 5K', BLUE_10K: 'BLUE 10K', BLUE_20K: 'BLUE MAX'
+    },
+    banners: [
+      { tag: 'Camtel Blue Unlimited', h3: 'Blue One 3K & 5K Unlimited', p: 'Non-stop high speed internet & unlimited Blue voice calls from 3,000 FCFA.', cta: 'Activate Blue' },
+      { tag: 'MTN & Orange Combos', h3: 'Data + Calls + SMS', p: 'Yamo, Wanda & Orange Dyal packs combining mobile internet with call minutes.', cta: 'Discover Combos' },
+      { tag: 'Yoomee All-in-One', h3: 'Yoomee 4G LTE & Voice', p: 'Generous data volumes and all-net talk minutes valid up to 30 days.', cta: 'Browse Yoomee' }
+    ],
+    hints: {
+      validCM: 'Valid Cameroon number ✓',
+      invalidCM: 'Not a recognized Cameroon number',
+      selectedOp: '{op} number confirmed ✓',
+      wrongOp: 'Belongs to {d}, not {op}',
+      digitsReq: '{n} digits entered',
+      match: 'Numbers match ✓',
+      noMatch: 'Numbers do not match',
+      reqOp: '{pm} requires an {need} account (detected {d})'
+    }
+  }
+};
+
+let currentLang = localStorage.getItem('gmp_lang') || 'fr';
+const t = k => I18N[currentLang][k] || k;
+
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem('gmp_lang', lang);
+  document.documentElement.lang = lang;
+  updateStaticStrings();
+  R();
+}
+
+function updateStaticStrings(){
+  $('btn-fr').className = 'lang-btn' + (currentLang==='fr'?' active':'');
+  $('btn-en').className = 'lang-btn' + (currentLang==='en'?' active':'');
+  $('nav-desc').textContent = t('navDesc');
+  if(currentLang==='fr'){
+    $('ft-t1').textContent = '🔒 Chiffrement Bancaire TLS 256-Bit';
+    $('ft-t2').textContent = '⚡ Livraison USSD & SIM Immédiate';
+    $('ft-t3').textContent = '🇨🇲 Intégration Officielle Opérateurs';
+    $('ft-t4').textContent = '🛡️ Sans Inscription · Sans Dépôt';
+    $('ft-desc').textContent = 'Portail direct de règlement télécom et factures pour Douala, Yaoundé, Bafoussam, Garoua, Bamenda, Kribi et l\'ensemble des 10 régions.';
+    $('ft-live').textContent = 'Toutes les passerelles 100% opérationnelles';
+    $('ft-c1-t').textContent = 'Télécommunications';
+    $('ft-c2-t').textContent = 'Services & Factures';
+    $('ft-c3-t').textContent = 'Assistance 24/7';
+    $('ft-sla').textContent = 'Délai moyen : < 2 Minutes';
+    $('ft-hrs').textContent = 'Paiements sécurisés H24 / 7j/7';
+    $('ft-copy').innerHTML = '&copy; 2026 <strong>GueMi_Pay</strong>. Plateforme de transactions numériques certifiée.';
+  } else {
+    $('ft-t1').textContent = '🔒 256-Bit TLS Bank Encryption';
+    $('ft-t2').textContent = '⚡ Instant USSD & SIM Delivery';
+    $('ft-t3').textContent = '🇨🇲 Official Operator Integrations';
+    $('ft-t4').textContent = '🛡️ No Account · Zero Pre-Deposit';
+    $('ft-desc').textContent = 'Direct telecom and utility settlement portal serving Douala, Yaoundé, Bafoussam, Garoua, Bamenda, Kribi and all 10 regions.';
+    $('ft-live').textContent = 'All payment gateways 100% operational';
+    $('ft-c1-t').textContent = 'Telecommunications';
+    $('ft-c2-t').textContent = 'Utilities & Bills';
+    $('ft-c3-t').textContent = 'Assistance 24/7';
+    $('ft-sla').textContent = 'Average SLA: < 2 Minutes';
+    $('ft-hrs').textContent = 'Secure Settlements 24/7';
+    $('ft-copy').innerHTML = '&copy; 2026 <strong>GueMi_Pay</strong>. Certified digital payments portal.';
+  }
+}
+
+const OPS={
+  MTN:{col:'#ffcc00',text:'#10241c',label:'MTN Cameroon'},
+  Orange:{col:'#ff7900',text:'#ffffff',label:'Orange Cameroun'},
+  Yoomee:{col:'#e20613',text:'#ffffff',label:'Yoomee 4G LTE'},
+  Camtel:{col:'#0066b3',text:'#ffffff',label:'Camtel Blue'}
+};
+
+const B={
+  MTN: mk(
+    'D,100,100 MB,24 h,;' +
+    'D,250,300 MB,24 h,;' +
+    'D,500,800 MB,24 h,POPULAR;' +
+    'D,1000,2.2 GB,24 h,;' +
+    'D,2000,5 GB,24 h,;' +
+    'W,1500,2.5 GB,7 days,;' +
+    'W,3000,6 GB,7 days,;' +
+    'W,5000,12 GB,7 days,BEST_VALUE;' +
+    'M,2000,3 GB,30 days,;' +
+    'M,5000,10 GB,30 days,;' +
+    'M,10000,25 GB,30 days,TOP_SELLER;' +
+    'M,20000,60 GB,30 days,;' +
+    'M,35000,120 GB,30 days,MEGA;' +
+    'G,250,1.5 GB Night Owl,00h-06h,DEAL;' +
+    'G,500,2 GB + 50 Min Appels + 50 SMS,48 h,COMBO;' +
+    'G,1000,3.5 GB + 100 Min Appels + 100 SMS,3 days,COMBO;' +
+    'G,2000,6 GB + 200 Min Appels + 150 SMS,7 days,COMBO;' +
+    'G,3000,10 GB + 300 Min Appels + SMS Illimités,10 days,COMBO;' +
+    'G,5000,18 GB + 500 Min Appels + SMS Illimités,30 days,SPECIAL;' +
+    'G,10000,42 GB + 1200 Min Tous Réseaux + SMS Illimités,30 days,SPECIAL'
+  ),
+  Orange: mk(
+    'D,100,120 MB,24 h,;' +
+    'D,250,350 MB,24 h,;' +
+    'D,500,1 GB,24 h,POPULAR;' +
+    'D,1000,2.5 GB,24 h,;' +
+    'D,2000,6 GB,24 h,;' +
+    'W,1500,3 GB,7 days,;' +
+    'W,3000,7.5 GB,7 days,;' +
+    'W,5000,15 GB,7 days,BEST_VALUE;' +
+    'M,2500,4 GB,30 days,;' +
+    'M,5000,12 GB,30 days,;' +
+    'M,10000,28 GB,30 days,TOP_SELLER;' +
+    'M,20000,70 GB,30 days,;' +
+    'M,40000,150 GB,30 days,MEGA;' +
+    'G,200,2 GB Night Pass,00h-06h,DEAL;' +
+    'G,500,2.5 GB + 45 Min Appels + 50 SMS,48 h,COMBO;' +
+    'G,1000,4 GB + 90 Min Appels + 100 SMS,3 days,COMBO;' +
+    'G,2000,7.5 GB + 180 Min Appels + 200 SMS,7 days,COMBO;' +
+    'G,3000,12 GB + 300 Min Appels + SMS Illimités,14 days,COMBO;' +
+    'G,5000,20 GB + 600 Min Appels + SMS Illimités,30 days,SPECIAL;' +
+    'G,10000,48 GB + 1500 Min Tous Réseaux + SMS Illimités,30 days,SPECIAL'
+  ),
+  Yoomee: mk(
+    'D,150,250 MB,24 h,;' +
+    'D,300,700 MB,24 h,;' +
+    'D,500,1.5 GB,24 h,POPULAR;' +
+    'D,1000,3.5 GB,24 h,;' +
+    'W,1500,4 GB,7 days,;' +
+    'W,3000,9 GB,7 days,;' +
+    'W,5000,18 GB,7 days,BEST_VALUE;' +
+    'M,4500,10 GB,30 days,;' +
+    'M,7500,20 GB,30 days,;' +
+    'M,12000,40 GB,30 days,TOP_SELLER;' +
+    'M,20000,75 GB,30 days,;' +
+    'M,30000,130 GB,30 days,MEGA;' +
+    'G,300,3 GB Night Owl,00h-06h,DEAL;' +
+    'G,500,1.8 GB + 40 Min Appels + 50 SMS,48 h,COMBO;' +
+    'G,1000,3.5 GB + 100 Min Appels + 100 SMS,3 days,COMBO;' +
+    'G,2500,8 GB + 200 Min Appels + 150 SMS,10 days,COMBO;' +
+    'G,5000,22 GB + 500 Min Tous Réseaux + SMS,30 days,SPECIAL;' +
+    'G,10000,50 GB + 1200 Min Tous Réseaux + Illimité Soir,30 days,SPECIAL'
+  ),
+  Camtel: mk(
+    'D,200,400 MB,24 h,;' +
+    'D,300,1.5 GB,24 h,;' +
+    'D,1000,3.5 GB,24 h,POPULAR;' +
+    'W,1500,5 GB,7 days,;' +
+    'W,3000,12 GB,7 days,BEST_VALUE;' +
+    'W,5000,25 GB,7 days,;' +
+    'M,5000,18 GB,30 days,;' +
+    'M,10000,45 GB,30 days,;' +
+    'M,15000,75 GB,30 days,TOP_SELLER;' +
+    'M,25000,150 GB,30 days,MEGA;' +
+    'G,250,5 GB Blue Night,00h-06h,DEAL;' +
+    'G,1000,Data Illimitée + Appels Camtel Illimités,24 h,UNLIMITED;' +
+    'G,2000,8 GB + Appels Illimités Camtel + 50 Min Tous Réseaux,7 days,COMBO;' +
+    'G,3000,Blue One 3K Illimité (Data Illimitée + Appels Camtel Illimités),30 days,BLUE_3K;' +
+    'G,5000,Blue One 5K Illimité (30 GB High-Speed puis Illimité + Appels),30 days,BLUE_5K;' +
+    'G,10000,Blue One 10K Illimité (70 GB High-Speed puis Illimité + Appels Tous Réseaux),30 days,BLUE_10K;' +
+    'G,20000,Blue One 20K Illimité Total (Internet Sans Limite + Appels Illimités),30 days,BLUE_20K'
+  )
+};
+
+const SV_DICT={
+  data:{icon:'📶',fr:['Forfaits Internet & Combos','Packs Data 4G/LTE, Appels+SMS & Blue Illimité'],en:['Data & Combo Bundles','4G/LTE Packs, Calls+SMS & Blue Unlimited']},
+  airtime:{icon:'📞',fr:['Crédit d\'Appel Direct','Recharge d\'unités de communication instantanée'],en:['Airtime Instant Recharge','Zero-fee talk-time credit delivered to any mobile number']},
+  canal:{icon:'📺',fr:['Réabonnement Canal+','Réactivation décodeur en quelques secondes'],en:['Canal+ Subscription','Immediate decoder reactivation with live package selection']},
+  eneo:{icon:'💡',fr:['Électricité ENEO','Génération de code prépayé & règlement postpayé'],en:['ENEO Electricity Tokens','Prepaid meter generation & postpaid invoice clearance']},
+  water:{icon:'💧',fr:['Factures CAMWATER','Paiement direct de quittances et consommations'],en:['CAMWATER Water Utilities','Direct water utility account balance replenishment']}
+};
+
+const CN=[['Access',5500],['Access+',10000],['Evasion',15000],['Evasion+',22000],['Tout Canal+',30000]];
+
+const PM={
+  momo:['MTN Mobile Money','MTN','#ffcc00',{fr:'Paiement direct via compte MoMo (*126#)',en:'Direct payment from your MTN MoMo account (*126#)'}],
+  om:['Orange Money','Orange','#ff7900',{fr:'Débit instantané portefeuille Orange Money (*150#)',en:'Instant debit from your Orange Money wallet (*150#)'}],
+  eu:['Express Union Mobile','any','#09533e',{fr:'EU Mobile Money (Tous réseaux acceptés)',en:'EU Mobile Money (All networks accepted)'}],
+  card:['Carte Bancaire (Visa / Mastercard)','none','#2962ff',{fr:'Paiement sécurisé certifié 3-D Secure',en:'3-D Secure certified international payment'}]
+};
+
+const API={pay:o=>new Promise(r=>setTimeout(()=>r({ref:'GMP-'+Date.now().toString(36).toUpperCase()}),1500))};
+
+let s;
+const init=()=>s={step:0,svc:null,op:'MTN',tab:'D',amt:0,lab:'',dl:'',rec:'',rec2:'',pm:null,pay:'',pay2:'',ok:false,cn:0,mo:1,et:'Prepaid',ref:'',cu:0};
+init();
+
+function det(n){
+  n=cl(n);
+  if(n.length!=9)return null;
+  if(/^6(7|8|5[1-4])/.test(n))return 'MTN';
+  if(/^6(9|5[5-9])/.test(n))return 'Orange';
+  if(/^(24[23]|650|66)/.test(n))return 'Yoomee';
+  if(/^62/.test(n))return 'Camtel';
+  return null;
+}
+
+const isPh=()=>s.svc=='data'||s.svc=='airtime';
+const RL={canal:[10,14],eneo:[8,14],water:[6,14]};
+
+function recOK(){
+  const n=dg(s.rec);
+  if(isPh()){
+    const t=cl(s.rec),d=det(t);
+    return Boolean(d && d==s.op && t==cl(s.rec2));
+  }
+  const l=RL[s.svc]||[6,14];
+  return Boolean(n.length>=l[0] && n.length<=l[1] && n==dg(s.rec2));
+}
+
+function payOK(){
+  if(!s.pm)return false;
+  if(s.pm=='card')return true;
+  const t=cl(s.pay),d=det(t),need=PM[s.pm][1];
+  return Boolean(d && (need=='any'||d==need) && t==cl(s.pay2));
+}
+
+const valid=()=>[1,s.amt>=(s.svc=='airtime'?100:s.svc=='data'?100:500),recOK(),payOK(),s.ok][s.step]||false;
+
+function th(){
+  const r=document.documentElement;
+  const isDark=r.dataset.theme?r.dataset.theme=='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+  r.dataset.theme=isDark?'light':'dark';
+}
+
+const go=n=>{s.step=n;window.scrollTo({top:0,behavior:'smooth'});R()};
+function nx(){if(s.step==4)return pay();go(s.step+1)}
+function bk(){go(s.step-1)}
+
+function quickLaunch(svc,op){
+  s.svc=svc;
+  if(op){s.op=op;s.tab='G'}
+  s.amt=0;s.lab='';
+  go(1);
+}
+
+function chips(){
+  return'<div class="chips-row">'+Object.keys(OPS).map(o=>`
+    <button class="chip-btn ${s.op==o?'active':''}" onclick="s.op='${o}';s.amt=0;s.lab='';R()">
+      <s style="background:${OPS[o].col}"></s>${OPS[o].label}
+    </button>`).join('')+'</div>';
+}
+
+function quick(a,min){
+  return '<div class="bundles-grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">'+a.map(v=>`
+    <button class="bundle-card ${s.amt==v&&!s.cu?'active':''}" onclick="s.cu=0;s.amt=${v};s.lab=lb();R()">
+      <b>${v>=1000?v/1000+'k':v}</b>
+      <span>${t('quickSelect')}</span>
+      <div class="price">${F(v)}</div>
+    </button>`).join('')+`</div>
+    <div class="form-group" style="margin-top:20px">
+      <label for="ca">${t('customAmount')} (${currentLang==='fr'?'Minimum':'Min.'} ${F(min)})</label>
+      <input id="ca" type="tel" inputmode="numeric" placeholder="ex: 3 500" value="${s.cu?s.amt:''}" oninput="s.cu=1;s.amt=+dg(this.value)||0;s.lab=lb();chk()">
+    </div>`;
+}
+
+const lb=()=>{
+  if(s.svc=='airtime') return s.op + (currentLang==='fr'?' Crédit d\'appel':' Airtime');
+  if(s.svc=='eneo') return 'ENEO ' + (s.et==='Prepaid'?(currentLang==='fr'?'Prépayé':'Prepaid'):(currentLang==='fr'?'Postpayé':'Postpaid'));
+  return currentLang==='fr'?'Facture CAMWATER':'CAMWATER Bill';
+};
+
+function renderTicketRail(){
+  const r=(label,val)=>`
+    <div class="ticket-row">
+      <span>${label}</span>
+      <b>${val}</b>
+    </div>`;
+  const svcName = s.svc ? SV_DICT[s.svc][currentLang][0] : '—';
+  return `
+    <aside class="ticket-panel">
+      <h3>${t('liveSummary')}</h3>
+      ${r(t('cat'), svcName)}
+      ${r(t('item'), s.dl || '—')}
+      ${r(isPh()?t('recipientSim'):t('recipientAcc'), dg(s.rec) ? `<span style="letter-spacing:1px">${dg(s.rec)}</span>` : '—')}
+      ${r(t('payVia'), s.pm ? PM[s.pm][0] : '—')}
+      ${s.pm && s.pm!='card' && cl(s.pay) ? r(t('payerPhone'), cl(s.pay)) : ''}
+      ${r(t('fee'), `<span style="color:var(--ok)">${t('free')}</span>`)}
+      <div class="ticket-total">
+        <span>${t('total')}</span>
+        <strong>${s.amt ? F(s.amt) : '0 FCFA'}</strong>
+      </div>
+      ${s.step === 4 ? `
+        <label class="confirm-check">
+          <input type="checkbox" ${s.ok?'checked':''} onchange="s.ok=this.checked;chk()">
+          <span>${t('checkConfirm')}</span>
+        </label>
+      `: ''}
+      <button class="action-btn" id="rail-go" onclick="nx()" ${!valid()?'disabled':''}>
+        ${s.step===4 ? t('authPay') + ' · ' + F(s.amt) : t('proceed')}
+      </button>
+      ${s.step > 0 ? `<button class="btn-back" onclick="bk()" style="width:100%;justify-content:center;margin-top:6px">${t('returnPrev')}</button>`:''}
+    </aside>
+  `;
+}
+
+function V0(){
+  const bn = I18N[currentLang].banners;
+  let h = `
+    <div class="banner-grid fade-in">
+      <div class="bn b1" onclick="quickLaunch('data','Camtel')">
+        <span class="bn-tag">${bn[0].tag}</span>
+        <div>
+          <h3>${bn[0].h3}</h3>
+          <p>${bn[0].p}</p>
+        </div>
+        <span class="bn-cta">${bn[0].cta} →</span>
+      </div>
+      <div class="bn b2" onclick="quickLaunch('data','MTN')">
+        <span class="bn-tag">${bn[1].tag}</span>
+        <div>
+          <h3>${bn[1].h3}</h3>
+          <p>${bn[1].p}</p>
+        </div>
+        <span class="bn-cta">${bn[1].cta} →</span>
+      </div>
+      <div class="bn b3" onclick="quickLaunch('data','Yoomee')">
+        <span class="bn-tag">${bn[2].tag}</span>
+        <div>
+          <h3>${bn[2].h3}</h3>
+          <p>${bn[2].p}</p>
+        </div>
+        <span class="bn-cta">${bn[2].cta} →</span>
+      </div>
+    </div>
+    <h1 class="fade-in">${t('heroTitle')}</h1>
+    <p class="sub fade-in">${t('heroSub')}</p>
+    <div class="services-grid fade-in">`;
+
+  let i=0;
+  for(const k in SV_DICT){
+    const isBig = i++===0;
+    const item = SV_DICT[k];
+    h += `
+      <div class="service-card ${isBig?'primary-card':''}" onclick="s.svc='${k}';s.amt=0;s.lab='';go(1)">
+        <div>
+          <div class="icon">${item.icon}</div>
+          <b>${item[currentLang][0]}</b>
+          <p>${item[currentLang][1]}</p>
+        </div>
+        <div class="cta-label">${t('selectSvc')} →</div>
+      </div>`;
+  }
+  h += '</div>';
+
+  let H=[];
+  try{H=JSON.parse(localStorage.gmp||'[]');}catch(e){}
+  if(H.length){
+    h += `
+      <h2 style="margin-top:44px">${t('recentTx')}</h2>
+      <div class="recent-list">
+        ${H.map(x=>`
+          <div class="recent-item">
+            <div>
+              <strong>${x.l}</strong>
+              <span>${currentLang==='fr'?'Bénéficiaire':'Recipient'}: ${x.r}</span>
+            </div>
+            <strong class="amt">${F(x.a)}</strong>
+          </div>`).join('')}
+      </div>`;
+  }
+  return h;
+}
+
+function V1(){
+  const v=s.svc;
+  const svcName = SV_DICT[v][currentLang][0];
+  let form = `<h2 class="fade-in">${svcName}</h2><p class="sub fade-in">${t('stepTitle1')}</p>`;
+
+  if(v=='data'){
+    const L=B[s.op].filter(b=>b.k==s.tab);
+    form += chips();
+    form += '<div class="chips-row">' + [
+      ['D', t('tabs').D],
+      ['W', t('tabs').W],
+      ['M', t('tabs').M],
+      ['G', t('tabs').G]
+    ].map(tabItem=>`<button class="chip-btn ${s.tab==tabItem[0]?'active':''}" onclick="s.tab='${tabItem[0]}';s.amt=0;s.lab='';R()">${tabItem[1]}</button>`).join('') + '</div>';
+
+    form += '<div class="bundles-grid fade-in">' + (L.length ? L.map(b=>{
+      const badgeText = b.b && I18N[currentLang].badges[b.b] ? I18N[currentLang].badges[b.b] : b.b;
+      return `
+        <button class="bundle-card ${s.lab==s.op+b.d+b.v?'active':''}" onclick="s.amt=${b.p};s.lab='${s.op+b.d+b.v}';s.dl='${s.op} ${b.d} · ${b.v}';R()">
+          ${badgeText?`<span class="tag-badge">${badgeText}</span>`:''}
+          <b>${b.d}</b>
+          <span>${t('validity')}: ${b.v}</span>
+          <div class="price">${F(b.p)}</div>
+        </button>`;
+    }).join('') : '<p class="sub" style="grid-column:1/-1">Aucun forfait disponible / No bundle available.</p>') + '</div>';
+  }
+  else if(v=='airtime'){
+    form += chips() + quick([100,200,500,1000,2000,5000,10000,15000,25000],100);
+  }
+  else if(v=='canal'){
+    form += '<div class="bundles-grid fade-in">' + CN.map((c,i)=>`
+      <button class="bundle-card ${s.cn==i?'active':''}" onclick="s.cn=${i};R()">
+        <b>${c[0]}</b>
+        <span>${currentLang==='fr'?'Formule':'Plan'}</span>
+        <div class="price">${F(c[1])} / ${currentLang==='fr'?'mois':'mo'}</div>
+      </button>`).join('') + '</div>';
+    form += `<div class="section-label" style="margin-top:22px">${t('periodSelect')}</div><div class="chips-row">` + [1,3,6,12].map(m=>`
+      <button class="chip-btn ${s.mo==m?'active':''}" onclick="s.mo=${m};R()">${m} ${t('months')}</button>`).join('') + '</div>';
+    s.amt = CN[s.cn][1] * s.mo;
+    s.lab = 'Canal+ ' + CN[s.cn][0] + ' · ' + s.mo + ' ' + (currentLang==='fr'?'mois':'mo');
+    s.dl = s.lab;
+  }
+  else{
+    if(v=='eneo'){
+      form += '<div class="chips-row">' + [
+        ['Prepaid', currentLang==='fr'?'Compteur Prépayé':'Prepaid Meter'],
+        ['Postpaid', currentLang==='fr'?'Facture Postpayée':'Postpaid Contract']
+      ].map(type=>`<button class="chip-btn ${s.et==type[0]?'active':''}" onclick="s.et='${type[0]}';s.lab=lb();R()">${type[1]}</button>`).join('') + '</div>';
+    }
+    form += quick([1000,2000,5000,10000,25000,50000],500);
+  }
+  if(v!='data') s.dl = s.lab;
+  return `
+    <div class="checkout-grid">
+      <div>${form}</div>
+      ${renderTicketRail()}
+    </div>`;
+}
+
+function V2(){
+  const p=isPh();
+  const n={
+    data: s.op + (currentLang==='fr'?' · Numéro de téléphone':' · Mobile Phone Number'),
+    airtime: s.op + (currentLang==='fr'?' · Numéro de téléphone':' · Mobile Phone Number'),
+    canal: currentLang==='fr'?'N° Décodeur / Carte Canal+ (10 à 14 chiffres)':'Canal+ Decoder / Smartcard ID (10–14 digits)',
+    eneo: s.et=='Prepaid' ? (currentLang==='fr'?'N° Compteur Prépayé (8 à 14 chiffres)':'Prepaid Meter Number (8–14 digits)') : (currentLang==='fr'?'N° Contrat ENEO (8 à 14 chiffres)':'ENEO Contract Number (8–14 digits)'),
+    water: currentLang==='fr'?'N° Abonné / Police CAMWATER (6 à 14 chiffres)':'CAMWATER Contract Number (6–14 digits)'
+  }[s.svc];
+
+  const form = `
+    <h2 class="fade-in">${t('stepTitle2')}</h2>
+    <p class="sub fade-in">${t('stepSub2')}</p>
+    <div class="form-group fade-in">
+      <label for="r1">${n}</label>
+      <input id="r1" type="${p?'tel':'text'}" inputmode="numeric" autocomplete="off" placeholder="ex: 6xxxxxxxx" value="${s.rec}" oninput="s.rec=this.value;chk()">
+      <div class="input-hint" id="h1"></div>
+    </div>
+    <div class="form-group fade-in">
+      <label for="r2">${t('confirmNumber')}</label>
+      <input id="r2" type="${p?'tel':'text'}" inputmode="numeric" autocomplete="off" placeholder="${t('repeatNumber')}" value="${s.rec2}" oninput="s.rec2=this.value;chk()">
+      <div class="input-hint" id="h2"></div>
+    </div>`;
+
+  return `
+    <div class="checkout-grid">
+      <div>${form}</div>
+      ${renderTicketRail()}
+    </div>`;
+}
+
+function V3(){
+  let form = `
+    <h2 class="fade-in">${t('stepTitle3')}</h2>
+    <p class="sub fade-in">${t('stepSub3')}</p>
+    <div class="pm-list fade-in">
+      ${Object.keys(PM).map(k=>`
+        <button class="pm-btn ${s.pm==k?'active':''}" onclick="s.pm='${k}';s.pay=s.pay2='';R()">
+          <s style="background:${PM[k][2]}"></s>
+          <div>
+            <b>${PM[k][0]}</b>
+            <span>${PM[k][3][currentLang]}</span>
+          </div>
+        </button>`).join('')}
+    </div>`;
+
+  if(s.pm && s.pm!='card'){
+    form += `
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--line)" class="fade-in">
+        <div class="form-group">
+          <label for="p1">${t('payerNumLabel')} (${PM[s.pm][0]})</label>
+          <input id="p1" type="tel" inputmode="numeric" placeholder="6xxxxxxxx" value="${s.pay}" oninput="s.pay=this.value;chk()">
+          <div class="input-hint" id="h3"></div>
+        </div>
+        <div class="form-group">
+          <label for="p2">${t('confirmPayerNum')}</label>
+          <input id="p2" type="tel" inputmode="numeric" placeholder="6xxxxxxxx" value="${s.pay2}" oninput="s.pay2=this.value;chk()">
+          <div class="input-hint" id="h4"></div>
+        </div>
+        ${isPh() && recOK() ? `<button class="chip-btn" style="border-style:dashed;margin-top:4px" onclick="s.pay=s.pay2=s.rec;R()">${t('sameAsRec')}</button>` : ''}
+      </div>`;
+  }
+
+  return `
+    <div class="checkout-grid">
+      <div>${form}</div>
+      ${renderTicketRail()}
+    </div>`;
+}
+
+function V4(){
+  const form = `
+    <h2 class="fade-in">${t('stepTitle4')}</h2>
+    <p class="sub fade-in">${t('stepSub4')}</p>
+    <div class="fade-in" style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-xs)">
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px;color:var(--ink-2)">${t('breakdownTitle')}</div>
+      <p style="margin:0;color:var(--mut);line-height:1.65;font-size:14px">
+        ${t('breakdownMsg')} <strong style="color:var(--ink)">${F(s.amt)}</strong> ${t('breakdownMsg2')} <strong style="color:var(--ink)">${s.dl}</strong> ${t('breakdownMsg3')} <strong style="color:var(--ink)">${dg(s.rec)}</strong>.
+      </p>
+    </div>`;
+
+  return `
+    <div class="checkout-grid">
+      <div>${form}</div>
+      ${renderTicketRail()}
+    </div>`;
+}
+
+function V5(){
+  return `
+    <div class="processing-card fade-in">
+      <div class="spinner"></div>
+      <h2 style="margin:0 0 6px;font-size:20px">${t('awaitTitle')}</h2>
+      <p class="sub" style="margin:auto;max-width:340px" id="ps">
+        ${s.pm=='card'? t('awaitCard') : t('awaitPrompt') + '<strong>' + cl(s.pay) + '</strong>.'}
+      </p>
+      <div style="margin-top:28px;display:inline-flex;flex-direction:column;gap:10px;text-align:left">
+        <div id="l1" style="color:var(--mut);font-weight:600;font-size:13px">${t('stepUssd')}</div>
+        <div id="l2" style="color:var(--mut);font-weight:600;font-size:13px">${t('stepDeliv')} ${dg(s.rec)}</div>
+      </div>
+    </div>`;
+}
+
+function V6(){
+  const r=(a,b)=>`
+    <div class="ticket-row">
+      <span>${a}</span>
+      <b>${b}</b>
+    </div>`;
+  return `
+    <div class="processing-card fade-in" style="max-width:520px;text-align:left">
+      <div class="success-icon">✓</div>
+      <h1 style="text-align:center;font-size:24px;margin:0 0 4px">${t('successTitle')}</h1>
+      <p style="text-align:center;color:var(--mut);margin:0 0 22px;font-size:14px">${s.dl} ${t('deliveredTo')} ${dg(s.rec)}</p>
+      <div style="background:var(--surface-2);border-radius:12px;padding:14px 16px;margin-bottom:18px;border:1px solid var(--line)">
+        ${r(t('txRef'), s.ref)}
+        ${r(t('txAmount'), F(s.amt))}
+        ${r(t('txSource'), PM[s.pm][0])}
+        ${r(t('txStatus'), `<span style="color:var(--ok)">${t('confirmed')}</span>`)}
+        ${r(t('txDate'), new Date().toLocaleString(currentLang==='fr'?'fr-FR':'en-US'))}
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="action-btn" style="flex:1;background:var(--surface);border:1.5px solid var(--line);color:var(--ink);box-shadow:none" onclick="cp()">${t('btnCopy')}</button>
+        <button class="action-btn" style="flex:1" onclick="init();R()">${t('btnNew')}</button>
+      </div>
+    </div>`;
+}
+
+function chk(){
+  const h=(id,text,isGood)=>{
+    const e=$(id);
+    if(e){e.textContent=text;e.className='input-hint '+(isGood?'good':'bad')}
+  };
+  const hints = I18N[currentLang].hints;
+  if(s.step==2){
+    const n=cl(s.rec),m=cl(s.rec2);
+    if(isPh()){
+      const d=det(n);
+      let msg = '';
+      if(n.length < 9) msg = '';
+      else if(!d) msg = hints.invalidCM;
+      else if(d==s.op) msg = hints.selectedOp.replace('{op}', d);
+      else msg = hints.wrongOp.replace('{d}', d).replace('{op}', s.op);
+      h('h1', msg, d==s.op);
+    }else{
+      const l=dg(s.rec).length,rng=RL[s.svc]||[6,14];
+      h('h1', l ? hints.digitsReq.replace('{n}', l) : '', l>=rng[0]&&l<=rng[1]);
+    }
+    const match = isPh() ? (m===n && n.length>=9) : (dg(s.rec2)===dg(s.rec) && dg(s.rec).length>0);
+    h('h2', dg(s.rec2) ? (match ? hints.match : hints.noMatch) : '', match);
+  }
+  if(s.step==3 && s.pm && s.pm!='card'){
+    const n=cl(s.pay),d=det(n),need=PM[s.pm][1];
+    let msg = '';
+    if(n.length < 9) msg = '';
+    else if(!d) msg = hints.invalidCM;
+    else if(need!='any' && d!=need) msg = hints.reqOp.replace('{pm}', PM[s.pm][0]).replace('{need}', need).replace('{d}', d);
+    else msg = hints.selectedOp.replace('{op}', d);
+    h('h3', msg, Boolean(d && (need=='any'||d==need)));
+    h('h4', s.pay2 ? (cl(s.pay2)===n ? hints.match : hints.noMatch) : '', cl(s.pay2)===n && n.length>=9);
+  }
+  bar();
+}
+
+function bar(){
+  const b=$('bar');
+  b.hidden = s.step==0 || s.step>4;
+  $('bt').textContent = s.amt ? F(s.amt) : '—';
+  $('go').disabled = !valid();
+  $('go').textContent = s.step==4 ? `${t('pay')} ${F(s.amt)}` : t('continue');
+  const railBtn = $('rail-go');
+  if(railBtn){
+    railBtn.disabled = !valid();
+    railBtn.innerHTML = s.step===4 ? `${t('authPay')} · ${F(s.amt)}` : t('proceed');
+  }
+}
+
+function R(){
+  const stBar = $('st-bar');
+  if(s.step > 0 && s.step < 5){
+    stBar.hidden = false;
+    $('st').innerHTML = I18N[currentLang].stn.map((x,i)=>`
+      <div class="step-item ${i<s.step?'done':''} ${i<=s.step?'active':''} ${i<s.step?'clickable':''}" onclick="${i<s.step?`go(${i})`:''}">
+        <b></b>
+        <span>${x}</span>
+      </div>`).join('');
+  } else {
+    stBar.hidden = true;
+  }
+  $('app').innerHTML = [V0,V1,V2,V3,V4,V5,V6][s.step]();
+  chk();
+}
+
+async function pay(){
+  go(5);
+  const r = await API.pay({svc:s.svc,amt:s.amt,to:s.rec,from:s.pay,pm:s.pm});
+  s.ref = r.ref;
+  $('l1').style.color = 'var(--ok)';
+  $('l1').textContent = currentLang==='fr' ? '✓ 1. Débit Mobile Money validé' : '✓ 1. Mobile Money prompt approved';
+  setTimeout(()=>{
+    try{
+      const H=JSON.parse(localStorage.gmp||'[]');
+      H.unshift({l:s.dl,r:dg(s.rec),a:s.amt});
+      localStorage.gmp=JSON.stringify(H.slice(0,6));
+    }catch(e){}
+    go(6);
+  },900);
+}
+
+function cp(){
+  const tpl = currentLang==='fr'
+    ? `Reçu GueMi_Pay\nService: ${s.dl}\nBénéficiaire: ${dg(s.rec)}\nMontant: ${F(s.amt)}\nRef: ${s.ref}\nStatut: Validé`
+    : `GueMi_Pay Transaction Receipt\nItem: ${s.dl}\nRecipient: ${dg(s.rec)}\nAmount: ${F(s.amt)}\nRef: ${s.ref}\nStatus: Confirmed`;
+  try{
+    navigator.clipboard.writeText(tpl);
+    alert(t('copiedAlert'));
+  }catch(e){}
+}
+
+updateStaticStrings();
+R();
+</script>
+</body>
+</html>
