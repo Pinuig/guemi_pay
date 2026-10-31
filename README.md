@@ -1,4 +1,4 @@
-# GueMi_Pay backend
+# GueMi_Pay
 
 Django + DRF + Celery backend for the GueMi_Pay frontend: data bundles,
 airtime, Canal+, ENEO and CAMWATER, paid by mobile money or card, with no
